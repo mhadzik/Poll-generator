@@ -1,6 +1,6 @@
 <script lang="ts">
   export let poll;
-  console.log(poll);
+  //console.log(poll);
 </script>
 
 <div class="card">

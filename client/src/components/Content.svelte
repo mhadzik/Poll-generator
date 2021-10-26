@@ -1,19 +1,39 @@
 <script lang="ts">
   import Card from "./Card.svelte";
-  import PollStore from "../stores/PollStore";
+  import { apiData, pollStore } from '../stores/PollStore';
 
-  let polls: Array<object>;
 
-  PollStore.subscribe((data) => {
-    console.log(data);
-    polls = [...data];
+  // let polls: Array<object>;
+
+  // PollStore.subscribe((data) => {
+  //   console.log(data);
+  //   polls = [...data];
+  // });
+  import { onMount } from 'svelte';
+
+  let pollsList = [];
+
+  // Get the data from the api, after the page is mounted.
+  onMount(async () => {
+    fetch("http://localhost:3000/api/polls")
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      apiData.set(data);
+    }).catch(err => {
+      console.log(err)
+      return [];
+    })
   });
+  console.log(pollStore);
+
 </script>
 
 <div class="content">
-  {#each polls as poll}
+  <!-- {#each polls as poll}
     <Card {poll} />
-  {/each}
+  {/each} -->
+  
 </div>
 
 <style>
